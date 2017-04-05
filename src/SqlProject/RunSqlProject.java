@@ -13,14 +13,9 @@ public class RunSqlProject {
 	       javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {	            	
 	    			//sc.initSystem();
-	            	SqlGUI myGui = new SqlGUI();
-	            	
-	            	
+	            	SqlGUI myGui = new SqlGUI();          	
 	            }
-	        });
-		
-	       
-	    
+	        });   
 		
 	}
 

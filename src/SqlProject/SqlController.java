@@ -7,24 +7,47 @@ import java.util.List;
 
 public class SqlController {
 	
-	private SqlCity city;
+	private SqlCityDAO city;
 	private SqlCountry country;
 	private SqlCountryLanguage language;
 	
 	
 	public SqlController() {
 		try{
-			city = new SqlCity();
+			city = new SqlCityDAO();
 			country = new SqlCountry();
 			language = new SqlCountryLanguage();
 		}
 		catch(FileNotFoundException fe){System.out.println("file Exception"+fe);}
 		catch(IOException io){System.out.println("io Exception");}
-		catch(SQLException se){System.out.println("sql Exception");}
+		catch(SQLException se){System.out.println("sql Exception");} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public List<String> getAllCitiesFromList(){
-		return (List) city.getAll();
+	public List<City> getAllCitiesFromList(){
+		List<City> rList=null;
+		try{
+		 rList= city.getAll();
+		}catch(Exception e){System.out.println("Exception [SqlController] :"+e);}
+		return rList;
+		
+	}
+	
+	public List<City> getAllCitiesFromList(String name){
+		List<City> rList=null;
+		try{
+		 rList= city.searchCity(name);
+		}catch(Exception e){System.out.println("Exception [SqlController] :"+e);}
+		return rList;
+		
 	}
 	
 	

@@ -58,19 +58,18 @@ public class SqlGUI extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Clicked!");
 				String lName = nametextField.getText();
-				List<String> result=null;
+				List<City> result=null;
 				try{
 					if(lName!=null && lName.trim().length()>0){
-						result = sc.getAllCitiesFromList();
+						result = sc.getAllCitiesFromList(lName);
 					}
 					else{
 						result = sc.getAllCitiesFromList();
 					}
-					
-					for(String tmp:result){
-						System.out.println(tmp);
+					for(City tmp:result){
+						System.out.println(""+tmp);
 					}
-				}catch(Exception e){}
+				}catch(Exception e){System.out.println("Exception [GUI] :" +e);}
 			}
 		});
 		btnSearch.setBackground(SystemColor.textHighlight);
@@ -83,6 +82,11 @@ public class SqlGUI extends JFrame{
 		table.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(table);
 		
+		this.setSize(new Dimension(200, 100));
+		this.pack();
+        this.update(this.getGraphics());
+        this.setVisible(true);
+        
 	}
 
 }
