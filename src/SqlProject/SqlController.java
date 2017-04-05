@@ -18,7 +18,7 @@ public class SqlController {
 			country = new SqlCountry();
 			language = new SqlCountryLanguage();
 		}
-		catch(FileNotFoundException fe){System.out.println("file Exception");}
+		catch(FileNotFoundException fe){System.out.println("file Exception"+fe);}
 		catch(IOException io){System.out.println("io Exception");}
 		catch(SQLException se){System.out.println("sql Exception");}
 	}

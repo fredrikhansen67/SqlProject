@@ -19,10 +19,10 @@ public class SqlCity {
 		/**
 		 * Setting up the connection to the databas by reading the properties fail
 		 */
-		Properties prop = new Properties();
-		prop.load(new FileInputStream("connect.properties"));		
-		connect = DriverManager.getConnection(prop.getProperty("URL"), prop.getProperty("user"), prop.getProperty("password"));
-		
+//		Properties prop = new Properties();
+//		prop.load(new FileInputStream("connect.properties"));
+//		connect = DriverManager.getConnection(prop.getProperty("URL"), prop.getProperty("user"), prop.getProperty("password"));
+//		
 	}
 	
 	public List getAll(){

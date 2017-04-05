@@ -17,6 +17,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class SqlGUI extends JFrame{
@@ -56,6 +57,20 @@ public class SqlGUI extends JFrame{
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Clicked!");
+				String lName = nametextField.getText();
+				List<String> result=null;
+				try{
+					if(lName!=null && lName.trim().length()>0){
+						result = sc.getAllCitiesFromList();
+					}
+					else{
+						result = sc.getAllCitiesFromList();
+					}
+					
+					for(String tmp:result){
+						System.out.println(tmp);
+					}
+				}catch(Exception e){}
 			}
 		});
 		btnSearch.setBackground(SystemColor.textHighlight);
