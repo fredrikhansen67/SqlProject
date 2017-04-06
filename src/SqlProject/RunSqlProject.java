@@ -1,5 +1,9 @@
 package SqlProject;
 
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
 public class RunSqlProject {
 
 	/**
@@ -7,13 +11,12 @@ public class RunSqlProject {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		SqlController sc = new SqlController();
 		
 
 	       javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {	            	
-	    			//sc.initSystem();
-	            	SqlGUI myGui = new SqlGUI();          	
+	            	SqlGUI myGui = new SqlGUI();    
+	            	myGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            }
 	        });   
 		

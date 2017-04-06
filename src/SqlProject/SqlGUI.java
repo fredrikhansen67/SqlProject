@@ -19,6 +19,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -91,7 +92,6 @@ public class SqlGUI extends JFrame{
 		this.pack();
         this.update(this.getGraphics());
         this.setVisible(true);
-        
 	}
 
 }

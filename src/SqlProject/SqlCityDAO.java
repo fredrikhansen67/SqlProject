@@ -25,10 +25,10 @@ public class SqlCityDAO implements SqlGenericDAOInterface{
 		/**
 		 * Setting up the connection to the databas by reading the properties fail
 		 */
-//		Properties prop = new Properties();
-//		prop.load(new FileInputStream("connect.properties"));
-//		connect = DriverManager.getConnection(prop.getProperty("URL"), prop.getProperty("user"), prop.getProperty("password"));
-		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/world", "root", "lexicon");
+		Properties prop = new Properties();
+		prop.load(new FileInputStream("connect.properties"));
+		connect = DriverManager.getConnection(prop.getProperty("URL"), prop.getProperty("user"), prop.getProperty("password"));
+//		connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/world", "root", "lexicon");
 		
 
 	}
