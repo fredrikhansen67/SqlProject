@@ -42,8 +42,8 @@ public class SqlCityDAO implements SqlGenericDAOInterface{
 	}
 	
 	@Override
-	public List getAll() throws SQLException{
-		cityList = new ArrayList();
+	public List<City> getAll() throws SQLException{
+		cityList = new ArrayList<City>();
 		Statement stmt =null;
 		ResultSet rs = null;
 
@@ -65,7 +65,7 @@ public class SqlCityDAO implements SqlGenericDAOInterface{
 	
 	@Override
 	public List<City> searchItem(String lName) throws Exception{
-		cityList = new ArrayList();
+		cityList = new ArrayList<City>();
 		PreparedStatement stmt =null;
 		ResultSet rs = null;
 

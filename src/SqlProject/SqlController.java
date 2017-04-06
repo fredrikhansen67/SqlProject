@@ -15,8 +15,8 @@ public class SqlController {
 	public SqlController() {
 		try{
 			city = new SqlCityDAO();
-			country = new SqlCountry();
-			language = new SqlCountryLanguage();
+			setCountry(new SqlCountry());
+			setLanguage(new SqlCountryLanguage());
 		}
 		catch(FileNotFoundException fe){System.out.println("file Exception"+fe);}
 		catch(IOException io){System.out.println("io Exception");}
@@ -48,6 +48,22 @@ public class SqlController {
 		}catch(Exception e){System.out.println("Exception [SqlController] :"+e);}
 		return rList;
 		
+	}
+
+	public SqlCountry getCountry() {
+		return country;
+	}
+
+	public void setCountry(SqlCountry country) {
+		this.country = country;
+	}
+
+	public SqlCountryLanguage getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(SqlCountryLanguage language) {
+		this.language = language;
 	}
 	
 	

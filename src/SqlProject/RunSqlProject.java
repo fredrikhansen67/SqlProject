@@ -1,7 +1,5 @@
 package SqlProject;
 
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 
 public class RunSqlProject {

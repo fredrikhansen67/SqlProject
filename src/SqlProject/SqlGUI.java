@@ -11,19 +11,23 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
-import javax.swing.table.TableModel;
-
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class SqlGUI extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3437348080974745086L;
+	/**
+	 * 
+	 */
 	private JTextField nametextField;
 	private JTable table;
 	private SqlController sc = new SqlController();
