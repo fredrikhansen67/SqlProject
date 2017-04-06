@@ -55,6 +55,9 @@ public class SqlGUI extends JFrame{
 		getContentPane().add(southPanel, BorderLayout.SOUTH);
 		
 		rowTextField = new JTextField();
+		rowTextField.setEditable(false);
+		rowTextField.setBackground(SystemColor.desktop);
+		rowTextField.setForeground(SystemColor.window);
 		southPanel.add(rowTextField);
 		rowTextField.setColumns(60);
 		
@@ -117,7 +120,6 @@ public class SqlGUI extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 //				Pick the ID from table and get the country from the other table
 				rowTextField.setText(sc.getRowSelectedContentFromCountry(table.getValueAt(table.getSelectedRow(), 2).toString()));
-				System.out.println(" "+table.getValueAt(table.getSelectedRow(), 0).toString());
 			}
 		});
 		table.setForeground(SystemColor.textHighlightText);
