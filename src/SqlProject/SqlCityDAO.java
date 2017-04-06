@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class SqlCityDAO {
+public class SqlCityDAO implements SqlGenericDAOInterface{
 	
 	private List<City> cityList;
 	private Connection connect;
 	
-	public SqlCityDAO() throws FileNotFoundException, IOException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
+	public SqlCityDAO() throws FileNotFoundException, IOException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
 		
 		Class.forName("com.mysql.jdbc.Driver");
@@ -41,6 +41,7 @@ public class SqlCityDAO {
 		
 	}
 	
+	@Override
 	public List getAll() throws SQLException{
 		cityList = new ArrayList();
 		Statement stmt =null;
@@ -62,7 +63,8 @@ public class SqlCityDAO {
 		}
 	}
 	
-	public List<City> searchCity(String lName) throws Exception{
+	@Override
+	public List<City> searchItem(String lName) throws Exception{
 		cityList = new ArrayList();
 		PreparedStatement stmt =null;
 		ResultSet rs = null;

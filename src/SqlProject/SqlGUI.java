@@ -11,6 +11,8 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.TableModel;
+
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.SystemColor;
@@ -66,6 +68,9 @@ public class SqlGUI extends JFrame{
 					else{
 						result = sc.getAllCitiesFromList();
 					}
+					SqlCityTableModel cityModel = new SqlCityTableModel(result);
+					table.setModel(cityModel);
+					
 					for(City tmp:result){
 						System.out.println(""+tmp);
 					}

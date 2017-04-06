@@ -44,7 +44,7 @@ public class SqlController {
 	public List<City> getAllCitiesFromList(String name){
 		List<City> rList=null;
 		try{
-		 rList= city.searchCity(name);
+		 rList= city.searchItem(name);
 		}catch(Exception e){System.out.println("Exception [SqlController] :"+e);}
 		return rList;
 		
