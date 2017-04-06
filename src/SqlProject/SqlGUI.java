@@ -8,17 +8,26 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.util.EventObject;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SqlGUI extends JFrame{
 	/**
@@ -31,13 +40,23 @@ public class SqlGUI extends JFrame{
 	private JTextField nametextField;
 	private JTable table;
 	private SqlController sc = new SqlController();
+	private JTextField rowTextField;
 	
 	public SqlGUI() {
+		getContentPane().setBackground(SystemColor.desktop);
 		setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		setTitle("World search tool");
 		
 		
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel southPanel = new JPanel();
+		southPanel.setBackground(SystemColor.desktop);
+		getContentPane().add(southPanel, BorderLayout.SOUTH);
+		
+		rowTextField = new JTextField();
+		southPanel.add(rowTextField);
+		rowTextField.setColumns(60);
 		
 		JPanel northPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) northPanel.getLayout();
@@ -63,7 +82,6 @@ public class SqlGUI extends JFrame{
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Clicked!");
 				String lName = nametextField.getText();
 				List<City> result=null;
 				try{
@@ -78,6 +96,10 @@ public class SqlGUI extends JFrame{
 
 					table.getColumnModel().getColumn(0).setMaxWidth(50);
 					table.getColumnModel().getColumn(2).setMaxWidth(50);
+//					Position the text in the cells with a cell renderer.
+					DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+					centerRenderer.setHorizontalAlignment( JLabel.LEFT );
+					table.setDefaultRenderer(String.class, centerRenderer);
 
 				}catch(Exception e){System.out.println("Exception [GUI] :" +e);}
 			}
@@ -86,9 +108,20 @@ public class SqlGUI extends JFrame{
 		northPanel.add(btnSearch);
 		
 		JScrollPane scrollPane = new JScrollPane();
+
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//				Pick the ID from table and get the country from the other table
+				rowTextField.setText(sc.getRowSelectedContentFromCountry(table.getValueAt(table.getSelectedRow(), 2).toString()));
+				System.out.println(" "+table.getValueAt(table.getSelectedRow(), 0).toString());
+			}
+		});
+		table.setForeground(SystemColor.textHighlightText);
+		table.setBackground(SystemColor.desktop);
 		
 		table.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(table);

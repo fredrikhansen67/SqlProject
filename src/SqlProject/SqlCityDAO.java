@@ -34,7 +34,6 @@ public class SqlCityDAO implements SqlGenericDAOInterface{
 	}
 	
 	public void convertRowToCity(ResultSet rs) throws SQLException{
-		System.out.println("rs size :"+rs.getFetchSize());
 		while (rs.next()){
 			cityList.add(new City(rs.getInt("ID"), rs.getString("name"), rs.getString("countryCode"), rs.getString("district"), rs.getInt("population")));
 		}
