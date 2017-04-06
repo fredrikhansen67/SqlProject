@@ -75,10 +75,10 @@ public class SqlGUI extends JFrame{
 					}
 					SqlCityTableModel cityModel = new SqlCityTableModel(result);
 					table.setModel(cityModel);
-					
-					for(City tmp:result){
-						System.out.println(""+tmp);
-					}
+
+					table.getColumnModel().getColumn(0).setMaxWidth(50);
+					table.getColumnModel().getColumn(2).setMaxWidth(50);
+
 				}catch(Exception e){System.out.println("Exception [GUI] :" +e);}
 			}
 		});
@@ -89,10 +89,10 @@ public class SqlGUI extends JFrame{
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		
 		table.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(table);
-		
-		this.setSize(new Dimension(200, 100));
+		this.setPreferredSize(new Dimension(800,400));
 		this.pack();
         this.update(this.getGraphics());
         this.setVisible(true);
