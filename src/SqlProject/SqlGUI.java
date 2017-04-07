@@ -8,22 +8,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
-import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellEditor;
-
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.util.EventObject;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -96,6 +90,10 @@ public class SqlGUI extends JFrame{
 					}
 					SqlCityTableModel cityModel = new SqlCityTableModel(result);
 					table.setModel(cityModel);
+					
+					for(City cc:result){
+						System.out.println(""+cc.getName()+" "+cc.getPopulation());
+					}
 
 					table.getColumnModel().getColumn(0).setMaxWidth(50);
 					table.getColumnModel().getColumn(2).setMaxWidth(50);
@@ -110,11 +108,25 @@ public class SqlGUI extends JFrame{
 		btnSearch.setBackground(SystemColor.textHighlight);
 		northPanel.add(btnSearch);
 		
+		JButton btnUpdateSelected = new JButton("Update selected");
+		btnUpdateSelected.setFont(new Font("Tahoma", Font.BOLD, 11));
+		northPanel.add(btnUpdateSelected);
+		
+		JButton btnNewCity = new JButton("New City");
+		btnNewCity.setFont(new Font("Tahoma", Font.BOLD, 11));
+		northPanel.add(btnNewCity);
+		
+		JButton btnDeleteCity = new JButton("Delete City");
+		btnDeleteCity.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDeleteCity.setBackground(new Color(220, 20, 60));
+		northPanel.add(btnDeleteCity);
+		
 		JScrollPane scrollPane = new JScrollPane();
 
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		scrollPane.setBackground(Color.black);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
