@@ -39,6 +39,70 @@ public class SqlCityDAO implements SqlGenericDAOInterface{
 		}
 		
 	}
+	public void updateCityToDB(City city){
+		cityList = new ArrayList<City>();
+		PreparedStatement pstmt =null;
+		
+		String insertSQL = "UPDATE city set Name =?, CountryCode=?, District=?, Population=? where ID like "+city.getId()+";";
+				
+		try{
+			pstmt = connect.prepareStatement(insertSQL);
+			pstmt.setString(1, city.getName());
+			pstmt.setString(2, city.getCountryCode());
+			pstmt.setString(3, city.getDistrict());
+			pstmt.setInt(4, city.getPopulation());
+			pstmt.executeUpdate();
+		}catch(Exception e){System.out.println("Exception [SqlCityDAO] updateCityToDB :" +e);}
+	}
+	
+	public void addNewCityToDB(City city){
+		cityList = new ArrayList<City>();
+		PreparedStatement pstmt =null;
+		
+		String insertSQL = "INSERT INTO city (ID, Name, CountryCode, District, Population) VALUES (?, ?, ?, ?, ?)";
+				
+		try{
+			pstmt = connect.prepareStatement(insertSQL);
+			pstmt.setInt(1, city.getId());
+			pstmt.setString(2, city.getName());
+			pstmt.setString(3, city.getCountryCode());
+			pstmt.setString(4, city.getDistrict());
+			pstmt.setInt(5, city.getPopulation());
+			pstmt.executeUpdate();
+		}catch(Exception e){System.out.println("Exception [SqlCityDAO] addNewCityToDB :" +e);}
+	}
+	
+	public int getNewIndexInCityDB() throws SQLException{
+		cityList = new ArrayList<City>();
+		Statement stmt =null;
+		ResultSet rs = null;
+		int index=0;
+		try{
+			stmt = connect.createStatement();
+			rs = stmt.executeQuery("SELECT ID FROM City ORDER BY ID DESC LIMIT 1;");
+			while(rs.next()){
+				System.out.println("RES :"+rs.getInt(1));
+				index = rs.getInt(1)+1;
+			}
+			
+			
+		}catch(Exception e){System.out.println("Exception [SqlCityDAO] getAll:" +e);}
+		finally{
+			cityList=null;
+			rs.close();
+			stmt.close();
+		}
+		return index;
+	}
+	
+	public void deleteCity(int id){
+		PreparedStatement stmt =null;
+		try{
+			stmt = connect.prepareStatement("DELETE from city where id like ?");
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+		}catch(Exception e){System.out.println("Exception [SqlCityDAO] delete :" +e);}
+	}
 	
 	@Override
 	public List<City> getAll() throws SQLException{
@@ -54,7 +118,7 @@ public class SqlCityDAO implements SqlGenericDAOInterface{
 			}
 			return cityList;
 			
-		}catch(Exception e){System.out.println("Exception [SqlCityDAO] :" +e);return cityList;}
+		}catch(Exception e){System.out.println("Exception [SqlCityDAO] getAll:" +e);return cityList;}
 		finally{
 			cityList=null;
 			rs.close();

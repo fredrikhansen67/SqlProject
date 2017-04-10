@@ -35,6 +35,7 @@ public class SqlGUI extends JFrame{
 	private JTable table;
 	private SqlController sc = new SqlController();
 	private JTextField rowTextField;
+	private SqlCityTableModel cityModel;
 	
 	public SqlGUI() {
 		getContentPane().setBackground(SystemColor.desktop);
@@ -73,12 +74,17 @@ public class SqlGUI extends JFrame{
 		
 		northPanel.add(getNameLabel);
 		northPanel.add(nametextField);
+		JButton btnDeleteCity = new JButton("Delete City");
+		btnDeleteCity.setEnabled(false);
 		/**
 		 * JButton Search
 		 */
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				table.setColumnSelectionAllowed(false);
+				table.setRowSelectionAllowed(true);
+				
 				String lName = nametextField.getText();
 				List<City> result=null;
 				try{
@@ -88,7 +94,7 @@ public class SqlGUI extends JFrame{
 					else{
 						result = sc.getAllCitiesFromList();
 					}
-					SqlCityTableModel cityModel = new SqlCityTableModel(result);
+					 cityModel = new SqlCityTableModel(result);
 					table.setModel(cityModel);
 					
 					for(City cc:result){
@@ -109,14 +115,33 @@ public class SqlGUI extends JFrame{
 		northPanel.add(btnSearch);
 		
 		JButton btnUpdateSelected = new JButton("Update selected");
+		btnUpdateSelected.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("* "+table.getValueAt(table.getSelectedRow(), 1).toString());
+				new UpdateCityGUI(sc, table.getValueAt(table.getSelectedRow(), 0).toString(), table.getValueAt(table.getSelectedRow(), 1).toString(), table.getValueAt(table.getSelectedRow(), 2).toString(), table.getValueAt(table.getSelectedRow(), 3).toString(), table.getValueAt(table.getSelectedRow(), 4).toString());
+			}
+		});
 		btnUpdateSelected.setFont(new Font("Tahoma", Font.BOLD, 11));
 		northPanel.add(btnUpdateSelected);
 		
+		
 		JButton btnNewCity = new JButton("New City");
+		btnNewCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new AddNewCityGUI(sc);
+			}
+		});
 		btnNewCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		northPanel.add(btnNewCity);
 		
-		JButton btnDeleteCity = new JButton("Delete City");
+		
+		btnDeleteCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sc.deleteItemFromCity((int)table.getValueAt(table.getSelectedRow(), 0));
+				cityModel.fireTableDataChanged();
+				table.repaint();
+			}
+		});
 		btnDeleteCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnDeleteCity.setBackground(new Color(220, 20, 60));
 		northPanel.add(btnDeleteCity);
@@ -130,6 +155,8 @@ public class SqlGUI extends JFrame{
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(table.getSelectedRow()>=0)
+					btnDeleteCity.setEnabled(true);
 //				Pick the ID from table and get the country from the other table
 				rowTextField.setText(sc.getRowSelectedContentFromCountry(table.getValueAt(table.getSelectedRow(), 2).toString()));
 			}

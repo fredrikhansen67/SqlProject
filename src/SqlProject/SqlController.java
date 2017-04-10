@@ -61,6 +61,30 @@ public class SqlController {
 		
 	
 	}
+	
+	public void addNewCitytoDB(String name, String countryCode, String district, int population){
+		try{
+			int lastIndex = city.getNewIndexInCityDB();
+			city.addNewCityToDB(new City(lastIndex,  name, countryCode, district,  population));
+		}catch(Exception e){System.out.println("Exception [addNewCitytoDB] :"+e);}
+		
+	}
+	public void updateNewCitytoDB(int id,String name, String countryCode, String district, int population){
+		try{
+			city.updateCityToDB(new City(id,  name, countryCode, district,  population));
+		}catch(Exception e){System.out.println("Exception [addNewCitytoDB] :"+e);}
+		
+	}
+	
+	public List<?> getCountryCodeList(){
+		try{
+			return countryDAO.getCountryCodes();
+		}catch(Exception e){System.out.println("Exception [getCountryCodeList] :"+e);return null;}
+	}
+	
+	public void deleteItemFromCity(int id){
+		city.deleteCity(id);
+	}
 
 	public SqlCountryDAO getCountry() {
 		return countryDAO;
